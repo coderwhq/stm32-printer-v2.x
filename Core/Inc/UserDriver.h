@@ -1,0 +1,6 @@
+#ifndef STM32_PRINTER_V2_X_USERDRIVER_H
+#define STM32_PRINTER_V2_X_USERDRIVER_H
+
+void ledInitialize();
+
+#endif//STM32_PRINTER_V2_X_USERDRIVER_H

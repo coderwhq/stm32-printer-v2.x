@@ -1,0 +1,9 @@
+cmake-build-debug-stm32-toolchain/*
+Middlewares/Third_Party/TraceRecorder/*
+
+.idea/*
+
+#.mxproject
+#.cproject
+#.project
+#.clang-format
