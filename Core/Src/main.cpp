@@ -1,16 +1,10 @@
 #include "main.h"
 #include "cmsis_os.h"
 #include "gpio.h"
-
-extern "C" {
-#include "UserDriver.h"
-}
+#include "spi.h"
+#include "usart.h"
 
 #include "MyTask.h"
-
-void initializeUserPeripherals() {
-    ledInitialize();
-}
 
 int main(void) {
 
@@ -37,8 +31,12 @@ int main(void) {
 
     /* Initialize all configured peripherals */
     MX_GPIO_Init();
+    MX_USART2_UART_Init();
+    MX_SPI1_Init();
+    MX_SPI2_Init();
+    MX_USART3_UART_Init();
     /* USER CODE BEGIN 2 */
-    initializeUserPeripherals();
+    
     /* USER CODE END 2 */
 
     /* Call init function for freertos objects (in cmsis_os2.c) */
