@@ -39,46 +39,51 @@
         * EVENT_OUT
         * EXTI
 */
-void MX_GPIO_Init(void) {
+void MX_GPIO_Init(void)
+{
 
-    GPIO_InitTypeDef GPIO_InitStruct = {0};
+  GPIO_InitTypeDef GPIO_InitStruct = {0};
 
-    /* GPIO Ports Clock Enable */
-    __HAL_RCC_GPIOC_CLK_ENABLE();
-    __HAL_RCC_GPIOD_CLK_ENABLE();
-    __HAL_RCC_GPIOA_CLK_ENABLE();
-    __HAL_RCC_GPIOB_CLK_ENABLE();
+  /* GPIO Ports Clock Enable */
+  __HAL_RCC_GPIOC_CLK_ENABLE();
+  __HAL_RCC_GPIOD_CLK_ENABLE();
+  __HAL_RCC_GPIOA_CLK_ENABLE();
+  __HAL_RCC_GPIOB_CLK_ENABLE();
 
-    /*Configure GPIO pin Output Level */
-    HAL_GPIO_WritePin(GPIOB, LED_PIN_Pin | PRINTER_LAT_PIN_Pin | SPI2_SS_PIN_Pin, GPIO_PIN_SET);
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOB, LED_Pin|PRINTER_LAT_Pin|SPI2_SS_Pin, GPIO_PIN_SET);
 
-    /*Configure GPIO pin Output Level */
-    HAL_GPIO_WritePin(GPIOA, PRINTER_STB1_PIN_Pin | PRINTER_STB2_PIN_Pin | PRINTER_STB3_PIN_Pin | PRINTER_STB4_PIN_Pin | PRINTER_STB5_PIN_Pin | PRINTER_STB6_PIN_Pin, GPIO_PIN_RESET);
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOA, PRINTER_STB1_Pin|PRINTER_STB2_Pin|PRINTER_STB3_Pin|PRINTER_STB4_Pin
+                          |PRINTER_STB5_Pin|PRINTER_STB6_Pin, GPIO_PIN_RESET);
 
-    /*Configure GPIO pin Output Level */
-    HAL_GPIO_WritePin(GPIOB, PRINTER_B2_Pin | PRINTER_B1_Pin | PRINTER_A2_Pin | PRINTER_A1_Pin, GPIO_PIN_RESET);
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOB, PRINTER_B2_Pin|PRINTER_B1_Pin|PRINTER_A2_Pin|PRINTER_A1_Pin, GPIO_PIN_RESET);
 
-    /*Configure GPIO pins : PBPin PBPin PBPin PBPin
+  /*Configure GPIO pins : PBPin PBPin PBPin PBPin
                            PBPin PBPin PBPin */
-    GPIO_InitStruct.Pin = LED_PIN_Pin | PRINTER_LAT_PIN_Pin | SPI2_SS_PIN_Pin | PRINTER_B2_Pin | PRINTER_B1_Pin | PRINTER_A2_Pin | PRINTER_A1_Pin;
-    GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
-    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
-    HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+  GPIO_InitStruct.Pin = LED_Pin|PRINTER_LAT_Pin|SPI2_SS_Pin|PRINTER_B2_Pin
+                          |PRINTER_B1_Pin|PRINTER_A2_Pin|PRINTER_A1_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-    /*Configure GPIO pins : PAPin PAPin PAPin PAPin
+  /*Configure GPIO pins : PAPin PAPin PAPin PAPin
                            PAPin PAPin */
-    GPIO_InitStruct.Pin = PRINTER_STB1_PIN_Pin | PRINTER_STB2_PIN_Pin | PRINTER_STB3_PIN_Pin | PRINTER_STB4_PIN_Pin | PRINTER_STB5_PIN_Pin | PRINTER_STB6_PIN_Pin;
-    GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
-    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
-    HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+  GPIO_InitStruct.Pin = PRINTER_STB1_Pin|PRINTER_STB2_Pin|PRINTER_STB3_Pin|PRINTER_STB4_Pin
+                          |PRINTER_STB5_Pin|PRINTER_STB6_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-    /*Configure GPIO pin : PtPin */
-    GPIO_InitStruct.Pin = ROLL_BTN_PIN_Pin;
-    GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
-    HAL_GPIO_Init(ROLL_BTN_PIN_GPIO_Port, &GPIO_InitStruct);
+  /*Configure GPIO pin : PtPin */
+  GPIO_InitStruct.Pin = ROLL_BTN_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(ROLL_BTN_GPIO_Port, &GPIO_InitStruct);
+
 }
 
 /* USER CODE BEGIN 2 */
