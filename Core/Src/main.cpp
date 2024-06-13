@@ -5,6 +5,14 @@
 #include "usart.h"
 
 #include "MyTask.h"
+#include "Serial.h"
+
+Serial serial(&huart2);
+extern "C" {
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
+    Serial::handleRxCplt(huart);
+}
+};
 
 int main(void) {
 
@@ -36,7 +44,8 @@ int main(void) {
     MX_SPI2_Init();
     MX_USART3_UART_Init();
     /* USER CODE BEGIN 2 */
-    
+    HAL_UART_Receive_IT(&huart2, (uint8_t *) &(Serial::aRxBuffer), 1);// 启用中断
+    serial.serialPrintf((char *) "Initialize Peripherals. \r\n");
     /* USER CODE END 2 */
 
     /* Call init function for freertos objects (in cmsis_os2.c) */

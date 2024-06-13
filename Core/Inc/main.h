@@ -31,7 +31,7 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "cmsis_os.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
@@ -41,8 +41,17 @@ extern "C" {
 
 /* Exported constants --------------------------------------------------------*/
 /* USER CODE BEGIN EC */
+#ifdef __cplusplus
+extern "C" {
+#endif
+extern osMessageQId rxDataQueueHandle;
+
 void SystemClock_Config(void);
 void MX_FREERTOS_Init(void);
+
+#ifdef __cplusplus
+}
+#endif
 /* USER CODE END EC */
 
 /* Exported macro ------------------------------------------------------------*/
@@ -108,6 +117,12 @@ void Error_Handler(void);
 #define PRINTER_A1_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
+
+#define LINE_DOT_PX 384
+#define LINE_MAX_BYTE (LINE_DOT_PX / 8)
+
+#define CHARACTER_BYTE_WIDTH 4
+#define LETTER_BYTE_WIDTH 2
 
 /* USER CODE END Private defines */
 
