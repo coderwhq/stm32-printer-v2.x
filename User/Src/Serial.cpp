@@ -8,25 +8,27 @@ uint8_t Serial::storedByteCount = 0;
 uint8_t Serial::restLineByte = LINE_MAX_BYTE - Serial::storedByteCount;
 uint8_t Serial::characterFlag = 0;
 
-void Serial::serialSendString(const char *str) {
-    HAL_UART_Transmit((this->huartX), reinterpret_cast<const uint8_t *>(str), strlen(str), HAL_MAX_DELAY);
+void Serial::serialSendString(UART_HandleTypeDef *huart, const char *str) {
+    HAL_UART_Transmit(huart, reinterpret_cast<const uint8_t *>(str), strlen(str), HAL_MAX_DELAY);
 }
 
-void Serial::serialPrintf(char *format, ...) {
+void Serial::serialPrintf(UART_HandleTypeDef *huart, char *format, ...) {
     char String[strlen(format) + 5];
     va_list arg;
     va_start(arg, format);
     vsprintf(String, format, arg);
     va_end(arg);
-    serialSendString(String);
+    serialSendString(huart, String);
 }
 
 void Serial::handleRxCplt(UART_HandleTypeDef *huart) {
     //    static char lineBuffer[LINE_MAX_BYTE + 1];
     if (huart->Instance == USART2) {
         if (aRxBuffer != '\n') {
-            processBuffer();
-            rxBuffer[currentIdx++] = aRxBuffer;
+            if (aRxBuffer != '\r') {// 不能将 '\r' 录入打印字符中
+                processBuffer();
+                rxBuffer[currentIdx++] = aRxBuffer;
+            }
         } else {
             putLineBuffer();
         }

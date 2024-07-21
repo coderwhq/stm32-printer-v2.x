@@ -24,10 +24,9 @@ private:
 public:
     static char rxBuffer[LINE_MAX_BYTE + 1];
     static char aRxBuffer;
-    UART_HandleTypeDef *huartX;
-    explicit Serial(UART_HandleTypeDef *huart) : huartX(huart) {}
-    void serialSendString(const char *str);
-    void serialPrintf(char *format, ...);
+    Serial() = default;
+    static void serialSendString(UART_HandleTypeDef *huart, const char *str);
+    static void serialPrintf(UART_HandleTypeDef *huart, char *format, ...);
     static void handleRxCplt(UART_HandleTypeDef *huart);
 };
 
