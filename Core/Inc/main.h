@@ -32,6 +32,7 @@ extern "C" {
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "cmsis_os.h"
+#include "spi.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
@@ -45,6 +46,10 @@ extern "C" {
 extern "C" {
 #endif
 extern osMessageQId rxDataQueueHandle;
+extern osThreadId waitPrintMsgTaskHandle;
+extern osThreadId printTaskHandle;
+extern osThreadId printPicTaskHandle;
+extern osThreadId rollPaperTaskHandle;
 
 void SystemClock_Config(void);
 void MX_FREERTOS_Init(void);
@@ -117,12 +122,31 @@ void Error_Handler(void);
 #define PRINTER_A1_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
+// user environment
+#define PRINTER_STBs_GPIO_PORT GPIOA
+
+#define FONT_SIZE_PX 32
 
 #define LINE_DOT_PX 384
 #define LINE_MAX_BYTE (LINE_DOT_PX / 8)
 
 #define CHARACTER_BYTE_WIDTH 4
 #define LETTER_BYTE_WIDTH 2
+
+// spi & huart
+#define PRINTER_SPIx hspi1
+#define FONT_BITMAP_SPIx hspi2
+#define SERIAL_PORT huart2
+#define BLUETEETH_PORT huart3
+
+// Printer
+#define DOT_LINE_SIZE LINE_MAX_BYTE
+#define USE_CIRCLE_HEAT 1
+#define HEAT_TIME 5
+#define LAT_TIME 1
+#define DOT_LINE_RUN_STEP 4
+#define LINE_SPACE_RUN_STEP (uint8_t)(FONT_SIZE_PX * 1.5)
+#define SEGMENT_SPACE_RUN_STEP (LINE_SPACE_RUN_STEP * 3)
 
 /* USER CODE END Private defines */
 
