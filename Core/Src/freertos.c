@@ -46,13 +46,21 @@
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN Variables */
 osMessageQId rxDataQueueHandle;
+
+osThreadId waitPrintMsgTaskHandle;
+osThreadId printTaskHandle;
+osThreadId printPicTaskHandle;
+osThreadId rollPaperTaskHandle;
 /* USER CODE END Variables */
 osThreadId defaultTaskHandle;
 osThreadId initialTestTaskHandle;
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
-
+extern void waitPrintMsgTask(void const *argument);
+extern void printTask(void const *argument);
+extern void printPicTask(void const *argument);
+extern void rollPaperTask(void const *argument);
 /* USER CODE END FunctionPrototypes */
 
 void StartDefaultTask(void const *argument);
@@ -99,7 +107,7 @@ void MX_FREERTOS_Init(void) {
 
     /* USER CODE BEGIN RTOS_QUEUES */
     /* add queues, ... */
-    osMessageQDef(rxDataQueue, 10, void *);
+    osMessageQDef(rxDataQueue, 30, void *);
     rxDataQueueHandle = osMessageCreate(osMessageQ(rxDataQueue), NULL);
     if (rxDataQueueHandle == NULL) {
         // error handle
@@ -117,6 +125,17 @@ void MX_FREERTOS_Init(void) {
 
     /* USER CODE BEGIN RTOS_THREADS */
     /* add threads, ... */
+    osThreadDef(waitPrintMsgTask, waitPrintMsgTask, osPriorityAboveNormal, 0, 128);
+    waitPrintMsgTaskHandle = osThreadCreate(osThread(waitPrintMsgTask), NULL);
+
+    osThreadDef(printTask, printTask, osPriorityRealtime, 0, 128);
+    printTaskHandle = osThreadCreate(osThread(printTask), NULL);
+
+    osThreadDef(printPicTask, printPicTask, osPriorityRealtime, 0, 128);
+    printPicTaskHandle = osThreadCreate(osThread(printPicTask), NULL);
+
+    osThreadDef(rollPaperTask, rollPaperTask, osPriorityRealtime, 0, 128);
+    rollPaperTaskHandle = osThreadCreate(osThread(rollPaperTask), NULL);
     /* USER CODE END RTOS_THREADS */
 }
 
