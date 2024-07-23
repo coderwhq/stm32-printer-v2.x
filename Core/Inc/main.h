@@ -126,18 +126,25 @@ void Error_Handler(void);
 #define PRINTER_STBs_GPIO_PORT GPIOA
 
 #define FONT_SIZE_PX 32
+#define FONT_HEIGHT_SIZE_PX FONT_SIZE_PX
+#define LETTER_WIDTH_SIZE_PX 16
+#define CHARACTER_WIDTH_SIZE_PX 32
 
 #define LINE_DOT_PX 384
 #define LINE_MAX_BYTE (LINE_DOT_PX / 8)
 
 #define CHARACTER_BYTE_WIDTH 4
 #define LETTER_BYTE_WIDTH 2
+// controll SPI
+#define Font_Bitmap_SPI_CS_Enable() HAL_GPIO_WritePin(SPI2_SS_GPIO_Port, SPI2_SS_Pin, GPIO_PIN_RESET)
+#define Font_Bitmap_SPI_CS_Disable() HAL_GPIO_WritePin(SPI2_SS_GPIO_Port, SPI2_SS_Pin, GPIO_PIN_SET)
 
 // spi & huart
 #define PRINTER_SPIx hspi1
 #define FONT_BITMAP_SPIx hspi2
 #define SERIAL_PORT huart2
 #define BLUETEETH_PORT huart3
+#define SERIAL &SERIAL_PORT
 
 // Printer
 #define DOT_LINE_SIZE LINE_MAX_BYTE
