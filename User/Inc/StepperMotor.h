@@ -7,13 +7,22 @@
 
 class StepperMotor {
 private:
-    uint8_t motorTable[8][4] = {};
-    void motorRunOneStep(uint8_t idx);
+    constexpr static const uint8_t motorTable[8][4] = {
+            {1, 0, 0, 0},
+            {1, 0, 0, 1},
+            {0, 0, 0, 1},
+            {0, 0, 1, 1},
+            {0, 0, 1, 0},
+            {0, 1, 1, 0},
+            {0, 1, 0, 0},
+            {1, 1, 0, 0},
+    };
+    static void motorRunOneStep(uint8_t idx);
     static void motorStop();
 
 public:
-    StepperMotor();
-    void motorRunCircle(uint16_t step);
+    StepperMotor() = default;
+    static void motorRunCircle(uint16_t step);
 };
 
 
