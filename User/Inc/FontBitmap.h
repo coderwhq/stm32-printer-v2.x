@@ -5,13 +5,13 @@
 #include "MySPI.h"
 #include "main.h"
 
-#define SPI &FONT_BITMAP_SPIx
+#define BitmapSPIx &FONT_BITMAP_SPIx
 
 class FontBitmap {
 private:
 public:
     FontBitmap() = default;
-    static void readData(uint32_t Address, uint8_t *DataArray, uint32_t Count);
+    static void readData(uint32_t Address, uint8_t *DataArray, uint16_t Count);
 };
 
 

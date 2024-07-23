@@ -7,7 +7,8 @@ class MySPI {
 private:
 public:
     MySPI() = default;
-    static void swapByte(SPI_HandleTypeDef *spiX, uint8_t pTxByte, uint8_t *pRxByte);
+    static void transmitByte(SPI_HandleTypeDef *spiX, uint8_t *pTxByte, uint16_t size);
+    static void receiveByte(SPI_HandleTypeDef *spiX, uint8_t *pRxByte, uint16_t size);
 };
 
 
