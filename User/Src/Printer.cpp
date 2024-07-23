@@ -49,10 +49,9 @@ void Printer::printerClearDotLineArray() {
 }
 
 void Printer::printerSendDotLineData(bool autoClear) {
-    uint8_t tempByte;
 
     for (uint8_t i = 0; i < DOT_LINE_SIZE; i++) {
-        MySPI::swapByte(SPI, dotLine[i], &tempByte);// 先用值传递
+        MySPI::transmitByte(PrinterSPIx, dotLine + i, 1);// 先用值传递
     }
 
     printerLATEnable();
@@ -119,7 +118,7 @@ void Printer::printerPrintDotLineCustom(uint8_t autoClear, uint8_t selectSTB, ui
     printerSendDotLineData(autoClear);
 
     printerHeatCustom(selectSTB, heatTime, isCircleHeat);
-    
+
     if (autoRunDotLine) {
         printerRunDotLine();
     }

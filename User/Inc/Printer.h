@@ -5,7 +5,7 @@
 #include "StepperMotor.h"
 #include "main.h"
 
-#define SPI &PRINTER_SPIx
+#define PrinterSPIx &PRINTER_SPIx
 
 class Printer : public StepperMotor {
 private:
